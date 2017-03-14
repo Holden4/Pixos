@@ -16,6 +16,15 @@ var db = monk(mongoUrl);
 
 const app = express()
 
+const cardData = require('./cardData.js');
+console.log(cardData);
+
+app.get('/api/cards/', (req,res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(cardData.CARD_DATA);
+});
+
+
 // Apply gzip compression
 app.use(compress())
 
