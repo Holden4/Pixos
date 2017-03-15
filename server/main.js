@@ -36,7 +36,7 @@ app.use(compress())
 
 // Loading socket.io
 var io = require('socket.io').listen(server);
-// 
+//
 // // When a client connects, we note it in the console
 // io.sockets.on('connection', function (socket) {
 //     socket.emit('message', 'Your are connected');
@@ -67,10 +67,16 @@ io.on("connection", function(socket) { //global connection
     user = null;
     //io.emit("update:playerOnline", connections.length());
   })
-
+  
+  // When the server receives a “message” type signal from the client
+  socket.on('message', function (message) {
+       console.log(socket.username + ' is speaking to me! They\'re saying: ' + message);
+});
 
   io.emit("update:playerOnline", connections.length());
 })
+
+
 
 
 // ------------------------------------

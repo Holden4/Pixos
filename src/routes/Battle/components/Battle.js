@@ -19,7 +19,7 @@ export default class Battle extends React.Component {
 
   emitMessage() {
     console.log('emitting message');
-    socket.emit('message', 'Hi server, how are you?');
+    socket.emit('message', { state: 'iamstate' });
   }
 
   matchMake() {
