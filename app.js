@@ -21,8 +21,12 @@ io.sockets.on('connection', function (socket) {
 
     // When the server receives a “message” type signal from the client
     socket.on('message', function (message) {
-     console.log('A client is speaking to me! They’re saying: ' + message);
+         console.log(socket.username + ' is speaking to me! They\'re saying: ' + message);
  });
+
+    socket.on('player', function(username) {
+        socket.username = username;
+    });
 
 });
 
