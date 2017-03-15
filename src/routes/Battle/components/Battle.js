@@ -17,6 +17,10 @@ const socket = io.connect('http://localhost:3000');
 
 export default class Battle extends React.Component {
 
+  emitMessage() {
+    console.log('emitting message');
+    socket.emit('message', 'Hi server, how are you?');
+  }
 
   render() {
     console.log(io);
@@ -30,7 +34,7 @@ export default class Battle extends React.Component {
 
       { <InfoBar/> }
       { <Board/> }
-
+      <button onClick={this.emitMessage}>Poke Server</button>
       </div>
     );
   }
