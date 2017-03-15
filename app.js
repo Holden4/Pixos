@@ -16,6 +16,8 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
     socket.emit('message', 'Your are connected');
     console.log('A client is connected!');
+    socket.broadcast.emit('message', 'Another client has just connected!');
+
 
     // When the server receives a “message” type signal from the client
     socket.on('message', function (message) {
