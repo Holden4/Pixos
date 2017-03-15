@@ -8,10 +8,6 @@ const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
 
-const http = require('http')
-
-
-
 //Import mongoDB
 const mongo = require('mongodb')
 const monk = require('monk')
@@ -20,14 +16,12 @@ var db = monk(mongoUrl);
 
 const app = express()
 
-const server = http.createServer(app);
-
 // Apply gzip compression
 app.use(compress())
 
 
 // Loading socket.io
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(app);
 
 // When a client connects, we note it in the console
 io.sockets.on('connection', function (socket) {
@@ -103,4 +97,4 @@ if (project.env === 'development') {
   app.use(express.static(project.paths.dist()))
 }
 
-module.exports = { app, server }
+module.exports = app
