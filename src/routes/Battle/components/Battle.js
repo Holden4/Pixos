@@ -22,6 +22,10 @@ export default class Battle extends React.Component {
     socket.emit('message', 'Hi server, how are you?');
   }
 
+  matchMake() {
+    socket.emit('request:matchmaking');
+  }
+
   render() {
     console.log(io);
     console.log(socket);
@@ -35,6 +39,7 @@ export default class Battle extends React.Component {
       { <InfoBar/> }
       { <Board/> }
       <button onClick={this.emitMessage}>Poke Server</button>
+      <button onClick={this.matchMake}>Matchmake</button>
       </div>
     );
   }

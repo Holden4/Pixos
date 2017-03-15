@@ -22,30 +22,55 @@ const app = express()
 
 const server = http.createServer(app);
 
+global.connections = require("./Connections")();
+
+global.matchmaking = require("./Matchmaker")();
+
+global.Room = require("./Room");
+
+global.User = require("./User");
+
 // Apply gzip compression
 app.use(compress())
 
 
 // Loading socket.io
 var io = require('socket.io').listen(server);
+// 
+// // When a client connects, we note it in the console
+// io.sockets.on('connection', function (socket) {
+//     socket.emit('message', 'Your are connected');
+//     console.log('A client is connected!');
+//     socket.broadcast.emit('message', 'Another client has just connected!');
+//
+//
+//     // When the server receives a “message” type signal from the client
+//     socket.on('message', function (message) {
+//          console.log(socket.username + ' is speaking to me! They\'re saying: ' + message);
+//  });
+//
+//     socket.on('player', function(username) {
+//         socket.username = username;
+//     });
+//
+// });
 
-// When a client connects, we note it in the console
-io.sockets.on('connection', function (socket) {
-    socket.emit('message', 'Your are connected');
-    console.log('A client is connected!');
-    socket.broadcast.emit('message', 'Another client has just connected!');
+io.on("connection", function(socket) { //global connection
+  var user;
+  connections.add(user = User(socket));
+  console.log("new user ", user.getName());
+
+  socket.on("disconnect", function() {
+    connections.remove(user);
+    user.disconnect();
+    console.log("user ", user.getName(), " disconnected");
+    user = null;
+    //io.emit("update:playerOnline", connections.length());
+  })
 
 
-    // When the server receives a “message” type signal from the client
-    socket.on('message', function (message) {
-         console.log(socket.username + ' is speaking to me! They\'re saying: ' + message);
- });
-
-    socket.on('player', function(username) {
-        socket.username = username;
-    });
-
-});
+  io.emit("update:playerOnline", connections.length());
+})
 
 
 // ------------------------------------
