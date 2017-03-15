@@ -1,6 +1,4 @@
-// /* @flow */
-//
-// import type { cardObject, cardsStateObject } from '../interfaces/cards.js'
+
 
 // ------------------------------------
 // Constants
@@ -24,33 +22,7 @@ export const BATTLE_RECEIVE_CARDS = 'BATTLE_RECEIVE_CARDS'
     returns a function for lazy evaluation. It is incredibly useful for
     creating async actions, especially when combined with redux-thunk! */
 //
-// export const doubleAsync = () => {
-//   return (dispatch, getState) => {
-//     return new Promise((resolve) => {
-//       setTimeout(() => {
-//         dispatch({
-//           type    : BATTLE_DOUBLE_ASYNC,
-//           payload : getState().battle
-//         })
-//         resolve()
-//       }, 200)
-//     })
-//   }
-// }
 
-// export const getCards = () => {
-//   return (dispatch, getState) => {
-//       fetch(`${window.location.origin}/api/cards`)
-//         .then(res => {
-//           return res.json() })
-//             .then(json => {
-//               dispatch({
-//                 type    : BATTLE_GET_CARDS,
-//                 payload : json
-//               })
-//             });
-//   }
-// }
 
 export function requestCards (): Action {
   return {
@@ -78,9 +50,7 @@ export const fetchCards = (): Function => {
         let json = res.json();
         console.log(json);
         return json
-      }
-
-      )
+      })
       .then(json => {
         console.log(json);
         dispatch(receiveCards(json))
@@ -99,16 +69,7 @@ export const actions = {
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
-// const ACTION_HANDLERS = {
-//   // [BATTLE_INCREMENT]    : (state, action) => state + action.payload,
-//   // [BATTLE_DOUBLE_ASYNC] : (state, action) => state * 2,
-//   [BATTLE_REQUEST_CARDS]: (state: cardsStateObject): cardsStateObject => {
-//     return ({ ...state, fetching: true })
-//   },
-//   [BATTLE_RECEIVE_CARDS]: (state: cardsStateObject, action: {payload: json}): cardsStateObject => {
-//     return ({ ...state, cards: state.cards.concat(action.payload), fetching: false })
-//   },
-// }
+
 const ACTION_HANDLERS = {
   // [BATTLE_INCREMENT]    : (state, action) => state + action.payload,
   // [BATTLE_DOUBLE_ASYNC] : (state, action) => state * 2,
@@ -121,7 +82,7 @@ const ACTION_HANDLERS = {
     console.log(state);
     console.log(action.payload);
     return Object.assign({}, state, {
-        cardsObj: action.payload
+        cards: action.payload.cards
       })
   },
 }
@@ -129,7 +90,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = { fetching: false, cardsObj: { cards: [] } }
+const initialState = { fetching: false, cards: [] }
 export default function battleReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 

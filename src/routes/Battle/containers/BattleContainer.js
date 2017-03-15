@@ -27,8 +27,8 @@ const mapDispatchToProps = {
 
 
 const mapStateToProps = (state) => ({
-  cards: state.cardsObj,
-  fetching: state.fetching
+  cards: state.battle.cards,
+  fetching: state.battle.fetching
 })
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 
