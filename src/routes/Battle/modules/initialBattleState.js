@@ -27,6 +27,7 @@ export const INITIAL_STATE = {
   },
   turnFinished: false,
   global: {
-    matchMakingComplete: false
+    matchMakingComplete: false,
+    roundCounter: 0
   }
 }

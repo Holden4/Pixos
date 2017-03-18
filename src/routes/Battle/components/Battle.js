@@ -8,6 +8,15 @@ const socket = io.connect(`${window.location.origin}`);
 
 export default class Battle extends React.Component {
 
+  isEndOfRound() {
+    if ( (this.props.battle.self.hasPassed
+      && this.props.battle.enemy.hasPassed
+    || (this.props.battle.self.hand.length === 0
+      && this.props.battle.self.hand.length === 0) ) {
+      return true;
+    }
+  }
+
   loadContent () {
     if(this.props.battle.global.matchMakingComplete == false) {
       return (
@@ -36,6 +45,18 @@ export default class Battle extends React.Component {
     }
   }
 
+  endRound() {
+    if (this.props.battle.self.power > this.props.battle.enemy.power) {
+      this.props.updateSelfScore()
+    } else if (this.props.battle.self.power < this.props.battle.enemy.power) {
+      this.props.updateEnemyScore()
+    }
+    // to do: discardPlayedCards - remove from playing area
+    // reset power
+    // determine who plays first
+    //
+  }
+
   componentDidMount() {
     var that = this
     if(this.props.battle.global.matchMakingComplete == false) {
@@ -51,7 +72,9 @@ export default class Battle extends React.Component {
       that.props.setMyTurn(true)
       that.props.updateGlobalState(data.global)
       that.props.updateEnemyState(data.player)
-      if (that.props.battle.self.hasPassed) {
+      if (this.isEndOfRound()) {
+        this.endRound()
+      } else if (that.props.battle.self.hasPassed) {
         that.props.setMyTurn(false)
         that.props.setTurnFinished(true)
       }
@@ -92,5 +115,7 @@ Battle.propTypes = {
   passTurn : React.PropTypes.func.isRequired,
   removeCard : React.PropTypes.func.isRequired,
   addCard : React.PropTypes.func.isRequired,
-  updateGlobalState : React.PropTypes.func.isRequired
+  updateGlobalState : React.PropTypes.func.isRequired,
+  updateSelfScore : React.PropTypes.func.isRequired,
+  updateEnemyScore : React.PropTypes.func.isRequired
 }

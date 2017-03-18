@@ -21,8 +21,8 @@ export const REMOVE_CARD = 'REMOVE_CARD'
 export const ADD_CARD = 'ADD_CARD'
 export const SET_MATCH_MAKING_COMPLETE = 'SET_MATCH_MAKING_COMPLETE'
 export const UPDATE_GLOBAL_STATE = 'UPDATE_GLOBAL_STATE'
-
-
+export const UPDATE_SELF_SCORE = 'UPDATE_SELF_SCORE'
+export const UPDATE_ENEMY_SCORE = 'UPDATE_ENEMY_SCORE'
 
 // ------------------------------------
 // Actions
@@ -49,6 +49,19 @@ export const doubleAsync = () => {
         resolve()
       }, 200)
     })
+  }
+}
+
+export function updateSelfScore() {
+  return {
+    type: UPDATE_SELF_SCORE,
+    payload: 1
+  }
+}
+export function updateEnemyScore() {
+  return {
+    type: UPDATE_ENEMY_SCORE,
+    payload: 1
   }
 }
 
@@ -157,6 +170,20 @@ const ACTION_HANDLERS = {
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         myTurn: action.payload
+      }),
+    })
+  },
+  [UPDATE_SELF_SCORE] : (state, action) => {
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.self, {
+        score: state.self.score + action.payload
+      }),
+    })
+  },
+  [UPDATE_ENEMY_SCORE] : (state, action) => {
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.enemy, {
+        score: state.enemy.score + action.payload
       }),
     })
   },

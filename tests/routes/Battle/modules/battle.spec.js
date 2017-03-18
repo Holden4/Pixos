@@ -12,6 +12,10 @@ import {
   ADD_CARD,
   SET_MATCH_MAKING_COMPLETE,
   UPDATE_GLOBAL_STATE,
+  UPDATE_SELF_SCORE,
+  UPDATE_ENEMY_SCORE,
+  updateEnemyScore,
+  updateSelfScore,
   updateGlobalState,
   addCard,
   passTurn,
@@ -44,6 +48,7 @@ describe('(Redux Module) Battle', () => {
     expect(ADD_CARD).to.equal('ADD_CARD')
     expect(SET_MATCH_MAKING_COMPLETE).to.equal('SET_MATCH_MAKING_COMPLETE')
     expect(UPDATE_GLOBAL_STATE).to.equal('UPDATE_GLOBAL_STATE')
+    expect(UPDATE_SELF_SCORE).to.equal('UPDATE_SELF_SCORE')
 
   })
 
@@ -81,6 +86,26 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SET_MATCH_MAKING_COMPLETE".', () => {
       expect(setMatchMakingComplete()).to.have.property('type', SET_MATCH_MAKING_COMPLETE)
+    })
+  })
+
+  describe('(Action Creator) updateEnemyScore', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateEnemyScore).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_ENEMY_SCORE".', () => {
+      expect(updateEnemyScore()).to.have.property('type', UPDATE_ENEMY_SCORE)
+    })
+  })
+
+  describe('(Action Creator) updateSelfScore', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateSelfScore).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_SELF_SCORE".', () => {
+      expect(updateSelfScore()).to.have.property('type', UPDATE_SELF_SCORE)
     })
   })
 
