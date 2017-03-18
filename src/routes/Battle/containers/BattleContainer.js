@@ -8,7 +8,8 @@ import {  increment,
           passTurn,
           removeCard,
           addCard,
-          setMatchMakingComplete
+          setMatchMakingComplete,
+          updateGlobalState
 } from '../modules/battle'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -32,7 +33,8 @@ const mapDispatchToProps = {
   passTurn,
   removeCard,
   addCard,
-  setMatchMakingComplete
+  setMatchMakingComplete,
+  updateGlobalState
 }
 
 const mapStateToProps = (state) => ({

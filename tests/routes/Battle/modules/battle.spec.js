@@ -11,6 +11,8 @@ import {
   REMOVE_CARD,
   ADD_CARD,
   SET_MATCH_MAKING_COMPLETE,
+  UPDATE_GLOBAL_STATE,
+  updateGlobalState,
   addCard,
   passTurn,
   updateEnemyState,
@@ -41,6 +43,8 @@ describe('(Redux Module) Battle', () => {
     expect(REMOVE_CARD).to.equal('REMOVE_CARD')
     expect(ADD_CARD).to.equal('ADD_CARD')
     expect(SET_MATCH_MAKING_COMPLETE).to.equal('SET_MATCH_MAKING_COMPLETE')
+    expect(UPDATE_GLOBAL_STATE).to.equal('UPDATE_GLOBAL_STATE')
+
   })
 
   describe('(Reducer)', () => {
@@ -77,6 +81,16 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SET_MATCH_MAKING_COMPLETE".', () => {
       expect(setMatchMakingComplete()).to.have.property('type', SET_MATCH_MAKING_COMPLETE)
+    })
+  })
+
+  describe('(Action Creator) updateGlobalState', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateGlobalState).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_GLOBAL_STATE".', () => {
+      expect(updateGlobalState()).to.have.property('type', UPDATE_GLOBAL_STATE)
     })
   })
 

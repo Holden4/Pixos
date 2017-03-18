@@ -20,6 +20,8 @@ export const PASS_TURN = 'PASS_TURN'
 export const REMOVE_CARD = 'REMOVE_CARD'
 export const ADD_CARD = 'ADD_CARD'
 export const SET_MATCH_MAKING_COMPLETE = 'SET_MATCH_MAKING_COMPLETE'
+export const UPDATE_GLOBAL_STATE = 'UPDATE_GLOBAL_STATE'
+
 
 
 // ------------------------------------
@@ -95,6 +97,13 @@ export function passTurn () {
   return {
     type: PASS_TURN,
     payload: true
+  }
+}
+
+export function updateGlobalState (data) {
+  return {
+    type: UPDATE_GLOBAL_STATE,
+    payload: data
   }
 }
 
@@ -186,6 +195,11 @@ const ACTION_HANDLERS = {
   [UPDATE_ENEMY_STATE] : (state, action) => {
     return Object.assign({}, state, {
       enemy: action.payload
+    })
+  },
+  [UPDATE_GLOBAL_STATE] : (state, action) => {
+    return Object.assign({}, state, {
+      global: action.payload
     })
   }
 }

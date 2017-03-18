@@ -9,7 +9,7 @@ const socket = io.connect(`${window.location.origin}`);
 export default class Battle extends React.Component {
 
   loadContent () {
-    if(this.props.battle.self.hand.length == 0) {
+    if(this.props.battle.global.matchMakingComplete == false) {
       return (
         <div className="row">
           <div className="col-12 text-center">
@@ -49,7 +49,8 @@ export default class Battle extends React.Component {
     socket.on("receive:data", function(data) {
       console.log("Received data from Opponent!:", data);
       that.props.setMyTurn(true)
-      that.props.updateEnemyState(data)
+      that.props.updateGlobalState(data.global)
+      that.props.updateEnemyState(data.player)
       if (that.props.battle.self.hasPassed) {
         that.props.setMyTurn(false)
         that.props.setTurnFinished(true)
@@ -63,7 +64,7 @@ export default class Battle extends React.Component {
     console.log('Battle state is:', this.props.battle)
     if (this.props.battle.turnFinished) {
       console.log('my turn is finished')
-      socket.emit('pass:ToRoom', this.props.battle.self)
+      socket.emit('pass:ToRoom', {player: this.props.battle.self, global: this.props.battle.global})
       this.props.setTurnFinished(false)
     }
 
@@ -90,5 +91,6 @@ Battle.propTypes = {
   updateEnemyState : React.PropTypes.func.isRequired,
   passTurn : React.PropTypes.func.isRequired,
   removeCard : React.PropTypes.func.isRequired,
-  addCard : React.PropTypes.func.isRequired
+  addCard : React.PropTypes.func.isRequired,
+  updateGlobalState : React.PropTypes.func.isRequired
 }
