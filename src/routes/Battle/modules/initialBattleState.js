@@ -25,5 +25,8 @@ export const INITIAL_STATE = {
       air: []
     }
   },
-  turnFinished: false
+  turnFinished: false,
+  global: {
+    matchMakingComplete: false
+  }
 }

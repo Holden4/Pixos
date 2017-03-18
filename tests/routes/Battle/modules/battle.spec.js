@@ -10,6 +10,7 @@ import {
   PASS_TURN,
   REMOVE_CARD,
   ADD_CARD,
+  SET_MATCH_MAKING_COMPLETE,
   addCard,
   passTurn,
   updateEnemyState,
@@ -19,6 +20,7 @@ import {
   increment,
   doubleAsync,
   removeCard,
+  setMatchMakingComplete,
   default as battleReducer
 } from 'routes/Battle/modules/battle'
 
@@ -38,6 +40,7 @@ describe('(Redux Module) Battle', () => {
     expect(PASS_TURN).to.equal('PASS_TURN')
     expect(REMOVE_CARD).to.equal('REMOVE_CARD')
     expect(ADD_CARD).to.equal('ADD_CARD')
+    expect(SET_MATCH_MAKING_COMPLETE).to.equal('SET_MATCH_MAKING_COMPLETE')
   })
 
   describe('(Reducer)', () => {
@@ -64,6 +67,16 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SETUP_PLAYERS".', () => {
       expect(setupPlayers()).to.have.property('type', SETUP_PLAYERS)
+    })
+  })
+
+  describe('(Action Creator) setMatchMakingComplete', () => {
+    it('Should be exported as a function.', () => {
+      expect(setMatchMakingComplete).to.be.a('function')
+    })
+
+    it('Should return an action with type "SET_MATCH_MAKING_COMPLETE".', () => {
+      expect(setMatchMakingComplete()).to.have.property('type', SET_MATCH_MAKING_COMPLETE)
     })
   })
 

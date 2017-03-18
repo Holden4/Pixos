@@ -7,7 +7,8 @@ import {  increment,
           updateEnemyState,
           passTurn,
           removeCard,
-          addCard
+          addCard,
+          setMatchMakingComplete
 } from '../modules/battle'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -30,7 +31,8 @@ const mapDispatchToProps = {
   updateEnemyState,
   passTurn,
   removeCard,
-  addCard
+  addCard,
+  setMatchMakingComplete
 }
 
 const mapStateToProps = (state) => ({

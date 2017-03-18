@@ -19,6 +19,7 @@ export const UPDATE_ENEMY_STATE = 'UPDATE_ENEMY_STATE'
 export const PASS_TURN = 'PASS_TURN'
 export const REMOVE_CARD = 'REMOVE_CARD'
 export const ADD_CARD = 'ADD_CARD'
+export const SET_MATCH_MAKING_COMPLETE = 'SET_MATCH_MAKING_COMPLETE'
 
 
 // ------------------------------------
@@ -83,6 +84,12 @@ export function setMyTurn (boolean) {
     payload: boolean
   }
 }
+export function setMatchMakingComplete () {
+  return {
+    type: SET_MATCH_MAKING_COMPLETE,
+    payload: true
+  }
+}
 
 export function passTurn () {
   return {
@@ -141,6 +148,13 @@ const ACTION_HANDLERS = {
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         myTurn: action.payload
+      }),
+    })
+  },
+  [SET_MATCH_MAKING_COMPLETE] : (state, action) => {
+    return Object.assign({}, state, {
+      global: Object.assign({}, state.global, {
+        matchMakingComplete: action.payload
       }),
     })
   },
