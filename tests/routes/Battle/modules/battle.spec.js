@@ -7,12 +7,27 @@ import {
   SET_TURN_FINISHED,
   SET_MY_TURN,
   UPDATE_ENEMY_STATE,
-  PASS_TURN,
+  SET_PASS_TURN,
   REMOVE_CARD,
   UPDATE_POWER,
   ADD_CARD,
+  SET_MATCH_MAKING_COMPLETE,
+  UPDATE_GLOBAL_STATE,
+  UPDATE_SELF_SCORE,
+  UPDATE_ENEMY_SCORE,
+  CLEAR_PLAYING_AREA,
+  RESET_POWER,
+  SET_ROUND_END,
+  UPDATE_ROUND_COUNTER,
+  updateRoundCounter,
+  setRoundEnd,
+  resetPower,
+  clearPlayingArea,
+  updateEnemyScore,
+  updateSelfScore,
+  updateGlobalState,
   addCard,
-  passTurn,
+  setPassTurn,
   updateEnemyState,
   setMyTurn,
   setTurnFinished,
@@ -21,6 +36,7 @@ import {
   doubleAsync,
   removeCard,
   updatePower,
+  setMatchMakingComplete,
   default as battleReducer
 } from 'routes/Battle/modules/battle'
 
@@ -37,10 +53,18 @@ describe('(Redux Module) Battle', () => {
     expect(SET_TURN_FINISHED).to.equal('SET_TURN_FINISHED')
     expect(SET_MY_TURN).to.equal('SET_MY_TURN')
     expect(UPDATE_ENEMY_STATE).to.equal('UPDATE_ENEMY_STATE')
-    expect(PASS_TURN).to.equal('PASS_TURN')
+    expect(SET_PASS_TURN).to.equal('SET_PASS_TURN')
     expect(REMOVE_CARD).to.equal('REMOVE_CARD')
     expect(ADD_CARD).to.equal('ADD_CARD')
     expect(UPDATE_POWER).to.equal('UPDATE_POWER')
+    expect(SET_MATCH_MAKING_COMPLETE).to.equal('SET_MATCH_MAKING_COMPLETE')
+    expect(UPDATE_GLOBAL_STATE).to.equal('UPDATE_GLOBAL_STATE')
+    expect(UPDATE_SELF_SCORE).to.equal('UPDATE_SELF_SCORE')
+    expect(CLEAR_PLAYING_AREA).to.equal('CLEAR_PLAYING_AREA')
+    expect(RESET_POWER).to.equal('RESET_POWER')
+    expect(SET_ROUND_END).to.equal('SET_ROUND_END')
+    expect(UPDATE_ROUND_COUNTER).to.equal('UPDATE_ROUND_COUNTER')
+
   })
 
   describe('(Reducer)', () => {
@@ -70,6 +94,86 @@ describe('(Redux Module) Battle', () => {
     })
   })
 
+  describe('(Action Creator) setRoundEnd', () => {
+    it('Should be exported as a function.', () => {
+      expect(setRoundEnd).to.be.a('function')
+    })
+
+    it('Should return an action with type "SET_ROUND_END".', () => {
+      expect(setRoundEnd()).to.have.property('type', SET_ROUND_END)
+    })
+  })
+
+  describe('(Action Creator) resetPower', () => {
+    it('Should be exported as a function.', () => {
+      expect(resetPower).to.be.a('function')
+    })
+
+    it('Should return an action with type "RESET_POWER".', () => {
+      expect(resetPower()).to.have.property('type', RESET_POWER)
+    })
+  })
+
+  describe('(Action Creator) updateRoundCounter', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateRoundCounter).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_ROUND_COUNTER".', () => {
+      expect(updateRoundCounter()).to.have.property('type', UPDATE_ROUND_COUNTER)
+    })
+  })
+
+  describe('(Action Creator) clearPlayingArea', () => {
+    it('Should be exported as a function.', () => {
+      expect(clearPlayingArea).to.be.a('function')
+    })
+
+    it('Should return an action with type "CLEAR_PLAYING_AREA".', () => {
+      expect(clearPlayingArea()).to.have.property('type', CLEAR_PLAYING_AREA)
+    })
+  })
+
+  describe('(Action Creator) setMatchMakingComplete', () => {
+    it('Should be exported as a function.', () => {
+      expect(setMatchMakingComplete).to.be.a('function')
+    })
+
+    it('Should return an action with type "SET_MATCH_MAKING_COMPLETE".', () => {
+      expect(setMatchMakingComplete()).to.have.property('type', SET_MATCH_MAKING_COMPLETE)
+    })
+  })
+
+  describe('(Action Creator) updateEnemyScore', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateEnemyScore).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_ENEMY_SCORE".', () => {
+      expect(updateEnemyScore()).to.have.property('type', UPDATE_ENEMY_SCORE)
+    })
+  })
+
+  describe('(Action Creator) updateSelfScore', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateSelfScore).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_SELF_SCORE".', () => {
+      expect(updateSelfScore()).to.have.property('type', UPDATE_SELF_SCORE)
+    })
+  })
+
+  describe('(Action Creator) updateGlobalState', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateGlobalState).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_GLOBAL_STATE".', () => {
+      expect(updateGlobalState()).to.have.property('type', UPDATE_GLOBAL_STATE)
+    })
+  })
+
   describe('(Action Creator) addCard', () => {
     it('Should be exported as a function.', () => {
       expect(addCard).to.be.a('function')
@@ -80,13 +184,13 @@ describe('(Redux Module) Battle', () => {
     })
   })
 
-  describe('(Action Creator) passTurn', () => {
+  describe('(Action Creator) setPassTurn', () => {
     it('Should be exported as a function.', () => {
-      expect(passTurn).to.be.a('function')
+      expect(setPassTurn).to.be.a('function')
     })
 
-    it('Should return an action with type "PASS_TURN".', () => {
-      expect(passTurn()).to.have.property('type', PASS_TURN)
+    it('Should return an action with type "SET_PASS_TURN".', () => {
+      expect(setPassTurn()).to.have.property('type', SET_PASS_TURN)
     })
   })
 

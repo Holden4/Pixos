@@ -16,10 +16,18 @@ export const PLAY_CARD = 'PLAY_CARD'
 export const SET_TURN_FINISHED = 'SET_TURN_FINISHED'
 export const SET_MY_TURN = 'SET_MY_TURN'
 export const UPDATE_ENEMY_STATE = 'UPDATE_ENEMY_STATE'
-export const PASS_TURN = 'PASS_TURN'
+export const SET_PASS_TURN = 'SET_PASS_TURN'
 export const REMOVE_CARD = 'REMOVE_CARD'
 export const ADD_CARD = 'ADD_CARD'
 export const UPDATE_POWER = 'UPDATE_POWER'
+export const SET_MATCH_MAKING_COMPLETE = 'SET_MATCH_MAKING_COMPLETE'
+export const UPDATE_GLOBAL_STATE = 'UPDATE_GLOBAL_STATE'
+export const UPDATE_SELF_SCORE = 'UPDATE_SELF_SCORE'
+export const UPDATE_ENEMY_SCORE = 'UPDATE_ENEMY_SCORE'
+export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
+export const RESET_POWER = 'RESET_POWER'
+export const SET_ROUND_END = 'SET_ROUND_END'
+export const UPDATE_ROUND_COUNTER = 'UPDATE_ROUND_COUNTER'
 
 
 // ------------------------------------
@@ -50,10 +58,51 @@ export const doubleAsync = () => {
   }
 }
 
+export function updateSelfScore() {
+  return {
+    type: UPDATE_SELF_SCORE,
+    payload: 1
+  }
+}
+
+export function setRoundEnd(boolean) {
+  return {
+    type: SET_ROUND_END,
+    payload: boolean
+  }
+}
+export function updateRoundCounter() {
+  return {
+    type: UPDATE_ROUND_COUNTER,
+    payload: 1
+  }
+}
+
+export function updateEnemyScore() {
+  return {
+    type: UPDATE_ENEMY_SCORE,
+    payload: 1
+  }
+}
+
+export function resetPower() {
+  return {
+    type: RESET_POWER,
+    payload: 0
+  }
+}
+
 export function setupPlayers (data) {
   return {
     type: SETUP_PLAYERS,
     payload: data
+  }
+}
+
+export function clearPlayingArea () {
+  return {
+    type: CLEAR_PLAYING_AREA,
+    payload: []
   }
 }
 
@@ -90,11 +139,24 @@ export function setMyTurn (boolean) {
     payload: boolean
   }
 }
-
-export function passTurn () {
+export function setMatchMakingComplete () {
   return {
-    type: PASS_TURN,
+    type: SET_MATCH_MAKING_COMPLETE,
     payload: true
+  }
+}
+
+export function setPassTurn (boolean) {
+  return {
+    type: SET_PASS_TURN,
+    payload: boolean
+  }
+}
+
+export function updateGlobalState (data) {
+  return {
+    type: UPDATE_GLOBAL_STATE,
+    payload: data
   }
 }
 
@@ -139,11 +201,45 @@ const ACTION_HANDLERS = {
       turnFinished: action.payload
     })
   },
+  [SET_ROUND_END] : (state, action) => {
+    return Object.assign({}, state, {
+      global: Object.assign({}, state.global, {
+        roundEnd: action.payload
+      }),
+    })
+  },
+  [UPDATE_ROUND_COUNTER] : (state, action) => {
+    return Object.assign({}, state, {
+      global: Object.assign({}, state.global, {
+        roundCounter: state.global.roundCounter + action.payload
+      }),
+    })
+  },
+  [RESET_POWER] : (state, action) => {
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.self, {
+        power: action.payload
+      }),
+    })
+  },
 
-  [PASS_TURN] : (state, action) => {
+  [SET_PASS_TURN] : (state, action) => {
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         hasPassed: action.payload
+      }),
+    })
+  },
+  [CLEAR_PLAYING_AREA] : (state, action) => {
+    console.log('CLEAR PLAYING AREA IS BEING CALLED');
+    console.log('Before function call', state.self.playingArea);
+    state.self.playingArea.land = []
+    state.self.playingArea.air = []
+    state.self.playingArea.water = []
+    console.log('After function call', state.self.playingArea);
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.self, {
+        playingArea: state.self.playingArea
       }),
     })
   },
@@ -154,17 +250,34 @@ const ACTION_HANDLERS = {
       }),
     })
   },
+  [UPDATE_SELF_SCORE] : (state, action) => {
+    console.log('UPDATE SELF SCORE IS BEING CALLED');
+
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.self, {
+        score: state.self.score + action.payload
+      }),
+    })
+  },
+  [UPDATE_ENEMY_SCORE] : (state, action) => {
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.enemy, {
+        score: state.enemy.score + action.payload
+      }),
+    })
+  },
+  [SET_MATCH_MAKING_COMPLETE] : (state, action) => {
+    return Object.assign({}, state, {
+      global: Object.assign({}, state.global, {
+        matchMakingComplete: action.payload
+      }),
+    })
+  },
   [ADD_CARD] : (state, action) => {
     var card = (state.self.hand[action.payload])
-    console.log(card)
-    console.log(card.type);
     if(card.type == 'water'){ state.self.playingArea.water.push(card) }
     else if (card.type == 'land'){ state.self.playingArea.land.push(card) }
     else { state.self.playingArea.air.push(card) }
-    console.log('AIR FIELD ', state.self.playingArea.air)
-    console.log('LAND FIELD ', state.self.playingArea.land)
-    console.log('WATER FIELD ', state.self.playingArea.water)
-
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         playingArea: state.self.playingArea
@@ -206,6 +319,12 @@ const ACTION_HANDLERS = {
       enemy: Object.assign({}, state.enemy, {
         power: enemyPower
       })
+    })
+  },
+
+  [UPDATE_GLOBAL_STATE] : (state, action) => {
+    return Object.assign({}, state, {
+      global: action.payload
     })
   }
 }

@@ -5,10 +5,18 @@ import {  increment,
           setTurnFinished,
           setMyTurn,
           updateEnemyState,
-          passTurn,
+          setPassTurn,
           removeCard,
           addCard,
-          updatePower
+          updatePower,
+          setMatchMakingComplete,
+          updateGlobalState,
+          updateSelfScore,
+          updateEnemyScore,
+          clearPlayingArea,
+          resetPower,
+          setRoundEnd,
+          updateRoundCounter
 } from '../modules/battle'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -29,10 +37,18 @@ const mapDispatchToProps = {
   setTurnFinished,
   setMyTurn,
   updateEnemyState,
-  passTurn,
+  setPassTurn,
   removeCard,
   addCard,
-  updatePower
+  updatePower,
+  setMatchMakingComplete,
+  updateGlobalState,
+  updateSelfScore,
+  updateEnemyScore,
+  clearPlayingArea,
+  resetPower,
+  setRoundEnd,
+  updateRoundCounter
 }
 
 const mapStateToProps = (state) => ({

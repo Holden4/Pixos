@@ -13,7 +13,7 @@ export default class InfoBar extends React.Component {
   setTurnFinishedToTrue () {
     console.log('trying to set turn finished to true')
     console.log('this is ', this)
-    this.props.passTurn()
+    this.props.setPassTurn(true)
     this.props.setMyTurn(false)
     this.props.setTurnFinished(true)
   }
@@ -51,6 +51,6 @@ export default class InfoBar extends React.Component {
 InfoBar.propTypes = {
   setTurnFinished  : React.PropTypes.func.isRequired,
   setMyTurn : React.PropTypes.func.isRequired,
-  passTurn : React.PropTypes.func.isRequired,
+  setPassTurn : React.PropTypes.func.isRequired,
   battle : React.PropTypes.object.isRequired
 }
