@@ -16,7 +16,7 @@ export const PLAY_CARD = 'PLAY_CARD'
 export const SET_TURN_FINISHED = 'SET_TURN_FINISHED'
 export const SET_MY_TURN = 'SET_MY_TURN'
 export const UPDATE_ENEMY_STATE = 'UPDATE_ENEMY_STATE'
-export const PASS_TURN = 'PASS_TURN'
+export const SET_PASS_TURN = 'SET_PASS_TURN'
 export const REMOVE_CARD = 'REMOVE_CARD'
 export const ADD_CARD = 'ADD_CARD'
 export const SET_MATCH_MAKING_COMPLETE = 'SET_MATCH_MAKING_COMPLETE'
@@ -26,6 +26,7 @@ export const UPDATE_ENEMY_SCORE = 'UPDATE_ENEMY_SCORE'
 export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
 export const RESET_POWER = 'RESET_POWER'
 export const SET_ROUND_END = 'SET_ROUND_END'
+export const UPDATE_ROUND_COUNTER = 'UPDATE_ROUND_COUNTER'
 
 
 // ------------------------------------
@@ -67,6 +68,12 @@ export function setRoundEnd(boolean) {
   return {
     type: SET_ROUND_END,
     payload: boolean
+  }
+}
+export function updateRoundCounter() {
+  return {
+    type: UPDATE_ROUND_COUNTER,
+    payload: 1
   }
 }
 
@@ -132,10 +139,10 @@ export function setMatchMakingComplete () {
   }
 }
 
-export function passTurn () {
+export function setPassTurn (boolean) {
   return {
-    type: PASS_TURN,
-    payload: true
+    type: SET_PASS_TURN,
+    payload: boolean
   }
 }
 
@@ -191,6 +198,13 @@ const ACTION_HANDLERS = {
       }),
     })
   },
+  [UPDATE_ROUND_COUNTER] : (state, action) => {
+    return Object.assign({}, state, {
+      global: Object.assign({}, state.global, {
+        roundCounter: state.global.roundCounter + action.payload
+      }),
+    })
+  },
   [RESET_POWER] : (state, action) => {
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
@@ -199,7 +213,7 @@ const ACTION_HANDLERS = {
     })
   },
 
-  [PASS_TURN] : (state, action) => {
+  [SET_PASS_TURN] : (state, action) => {
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         hasPassed: action.payload

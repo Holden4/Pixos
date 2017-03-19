@@ -39,7 +39,7 @@ export default class Battle extends React.Component {
           <InfoBar  battle={this.props.battle}
                     setTurnFinished={this.props.setTurnFinished}
                     setMyTurn={this.props.setMyTurn}
-                    passTurn={this.props.passTurn}
+                    setPassTurn={this.props.setPassTurn}
                     />
           <Board battle={this.props.battle}
                 setTurnFinished={this.props.setTurnFinished}
@@ -53,23 +53,27 @@ export default class Battle extends React.Component {
 
   endRound() {
     console.log('endRound is being called');
+    console.log("self power ", this.props.battle.self.power)
+    console.log("enemy power ", this.props.battle.enemy.power)
     if (this.props.battle.self.power > this.props.battle.enemy.power) {
+      console.log("I won the round")
       this.props.updateSelfScore()
+    } else {
+      console.log("I lost the round")
+      this.props.setMyTurn(false)
     }
     this.props.clearPlayingArea()
     this.props.resetPower()
-
-    if (this.props.battle.enemy.hasPassed == false && this.props.battle.enemy.hand > 0) {
-      // this.props.updateRoundCounter()
+    this.props.setPassTurn(false)
+    if (this.props.battle.enemy.hasPassed == false && this.props.battle.enemy.hand.length > 0) {
+      console.log("updating round counter")
+      this.props.updateRoundCounter()
       this.props.setRoundEnd(false)
     }
-
-    // take turn
-      // this.props.setMyTurn(false)
-      // this.props.setTurnFinished(true)
-    // to do: discardPlayedCards - remove from playing area
-    // reset power
-    //
+    if (this.props.battle.self.myTurn == false) {
+      console.log("Back to the oppponent")
+      this.props.setTurnFinished(true)
+    }
   }
 
   componentDidMount() {
@@ -87,8 +91,11 @@ export default class Battle extends React.Component {
       that.props.setMyTurn(true)
       that.props.updateGlobalState(data.global)
       that.props.updateEnemyState(data.player)
-      if (that.isEndOfRound()) { that.props.setRoundEnd(true)}
-      if (that.props.global.roundEnd) {
+      if (that.isEndOfRound()) {
+        console.log("isEndOfRound is true")
+        that.props.setRoundEnd(true)
+      }
+      if (that.props.battle.global.roundEnd) {
         that.endRound()
       } else if (that.props.battle.self.hasPassed) {
         that.props.setMyTurn(false)
@@ -128,7 +135,7 @@ Battle.propTypes = {
   battle : React.PropTypes.object.isRequired,
   setMyTurn : React.PropTypes.func.isRequired,
   updateEnemyState : React.PropTypes.func.isRequired,
-  passTurn : React.PropTypes.func.isRequired,
+  setPassTurn : React.PropTypes.func.isRequired,
   removeCard : React.PropTypes.func.isRequired,
   addCard : React.PropTypes.func.isRequired,
   updateGlobalState : React.PropTypes.func.isRequired,
@@ -136,6 +143,7 @@ Battle.propTypes = {
   updateEnemyScore : React.PropTypes.func.isRequired,
   clearPlayingArea : React.PropTypes.func.isRequired,
   resetPower : React.PropTypes.func.isRequired,
-  setRoundEnd : React.PropTypes.func.isRequired
+  setRoundEnd : React.PropTypes.func.isRequired,
+  updateRoundCounter : React.PropTypes.func.isRequired
 
 }

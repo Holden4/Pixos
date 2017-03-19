@@ -5,7 +5,7 @@ import {  increment,
           setTurnFinished,
           setMyTurn,
           updateEnemyState,
-          passTurn,
+          setPassTurn,
           removeCard,
           addCard,
           setMatchMakingComplete,
@@ -14,7 +14,8 @@ import {  increment,
           updateEnemyScore,
           clearPlayingArea,
           resetPower,
-          setRoundEnd
+          setRoundEnd,
+          updateRoundCounter
 } from '../modules/battle'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -35,7 +36,7 @@ const mapDispatchToProps = {
   setTurnFinished,
   setMyTurn,
   updateEnemyState,
-  passTurn,
+  setPassTurn,
   removeCard,
   addCard,
   setMatchMakingComplete,
@@ -44,7 +45,8 @@ const mapDispatchToProps = {
   updateEnemyScore,
   clearPlayingArea,
   resetPower,
-  setRoundEnd
+  setRoundEnd,
+  updateRoundCounter
 }
 
 const mapStateToProps = (state) => ({

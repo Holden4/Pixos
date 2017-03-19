@@ -7,7 +7,7 @@ import {
   SET_TURN_FINISHED,
   SET_MY_TURN,
   UPDATE_ENEMY_STATE,
-  PASS_TURN,
+  SET_PASS_TURN,
   REMOVE_CARD,
   ADD_CARD,
   SET_MATCH_MAKING_COMPLETE,
@@ -17,6 +17,8 @@ import {
   CLEAR_PLAYING_AREA,
   RESET_POWER,
   SET_ROUND_END,
+  UPDATE_ROUND_COUNTER,
+  updateRoundCounter,
   setRoundEnd,
   resetPower,
   clearPlayingArea,
@@ -24,7 +26,7 @@ import {
   updateSelfScore,
   updateGlobalState,
   addCard,
-  passTurn,
+  setPassTurn,
   updateEnemyState,
   setMyTurn,
   setTurnFinished,
@@ -49,7 +51,7 @@ describe('(Redux Module) Battle', () => {
     expect(SET_TURN_FINISHED).to.equal('SET_TURN_FINISHED')
     expect(SET_MY_TURN).to.equal('SET_MY_TURN')
     expect(UPDATE_ENEMY_STATE).to.equal('UPDATE_ENEMY_STATE')
-    expect(PASS_TURN).to.equal('PASS_TURN')
+    expect(SET_PASS_TURN).to.equal('SET_PASS_TURN')
     expect(REMOVE_CARD).to.equal('REMOVE_CARD')
     expect(ADD_CARD).to.equal('ADD_CARD')
     expect(SET_MATCH_MAKING_COMPLETE).to.equal('SET_MATCH_MAKING_COMPLETE')
@@ -58,6 +60,7 @@ describe('(Redux Module) Battle', () => {
     expect(CLEAR_PLAYING_AREA).to.equal('CLEAR_PLAYING_AREA')
     expect(RESET_POWER).to.equal('RESET_POWER')
     expect(SET_ROUND_END).to.equal('SET_ROUND_END')
+    expect(UPDATE_ROUND_COUNTER).to.equal('UPDATE_ROUND_COUNTER')
 
   })
 
@@ -105,6 +108,16 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "RESET_POWER".', () => {
       expect(resetPower()).to.have.property('type', RESET_POWER)
+    })
+  })
+
+  describe('(Action Creator) updateRoundCounter', () => {
+    it('Should be exported as a function.', () => {
+      expect(updateRoundCounter).to.be.a('function')
+    })
+
+    it('Should return an action with type "UPDATE_ROUND_COUNTER".', () => {
+      expect(updateRoundCounter()).to.have.property('type', UPDATE_ROUND_COUNTER)
     })
   })
 
@@ -168,13 +181,13 @@ describe('(Redux Module) Battle', () => {
     })
   })
 
-  describe('(Action Creator) passTurn', () => {
+  describe('(Action Creator) setPassTurn', () => {
     it('Should be exported as a function.', () => {
-      expect(passTurn).to.be.a('function')
+      expect(setPassTurn).to.be.a('function')
     })
 
-    it('Should return an action with type "PASS_TURN".', () => {
-      expect(passTurn()).to.have.property('type', PASS_TURN)
+    it('Should return an action with type "SET_PASS_TURN".', () => {
+      expect(setPassTurn()).to.have.property('type', SET_PASS_TURN)
     })
   })
 
