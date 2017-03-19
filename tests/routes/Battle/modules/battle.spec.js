@@ -15,6 +15,10 @@ import {
   UPDATE_SELF_SCORE,
   UPDATE_ENEMY_SCORE,
   CLEAR_PLAYING_AREA,
+  RESET_POWER,
+  SET_ROUND_END,
+  setRoundEnd,
+  resetPower,
   clearPlayingArea,
   updateEnemyScore,
   updateSelfScore,
@@ -52,6 +56,9 @@ describe('(Redux Module) Battle', () => {
     expect(UPDATE_GLOBAL_STATE).to.equal('UPDATE_GLOBAL_STATE')
     expect(UPDATE_SELF_SCORE).to.equal('UPDATE_SELF_SCORE')
     expect(CLEAR_PLAYING_AREA).to.equal('CLEAR_PLAYING_AREA')
+    expect(RESET_POWER).to.equal('RESET_POWER')
+    expect(SET_ROUND_END).to.equal('SET_ROUND_END')
+
   })
 
   describe('(Reducer)', () => {
@@ -78,6 +85,26 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SETUP_PLAYERS".', () => {
       expect(setupPlayers()).to.have.property('type', SETUP_PLAYERS)
+    })
+  })
+
+  describe('(Action Creator) setRoundEnd', () => {
+    it('Should be exported as a function.', () => {
+      expect(setRoundEnd).to.be.a('function')
+    })
+
+    it('Should return an action with type "SET_ROUND_END".', () => {
+      expect(setRoundEnd()).to.have.property('type', SET_ROUND_END)
+    })
+  })
+
+  describe('(Action Creator) resetPower', () => {
+    it('Should be exported as a function.', () => {
+      expect(resetPower).to.be.a('function')
+    })
+
+    it('Should return an action with type "RESET_POWER".', () => {
+      expect(resetPower()).to.have.property('type', RESET_POWER)
     })
   })
 

@@ -57,7 +57,13 @@ export default class Battle extends React.Component {
       this.props.updateSelfScore()
     }
     this.props.clearPlayingArea()
-    // reset power
+    this.props.resetPower()
+
+    if (this.props.battle.enemy.hasPassed == false && this.props.battle.enemy.hand > 0) {
+      // this.props.updateRoundCounter()
+      this.props.setRoundEnd(false)
+    }
+
     // take turn
       // this.props.setMyTurn(false)
       // this.props.setTurnFinished(true)
@@ -81,7 +87,8 @@ export default class Battle extends React.Component {
       that.props.setMyTurn(true)
       that.props.updateGlobalState(data.global)
       that.props.updateEnemyState(data.player)
-      if (that.isEndOfRound()) {
+      if (that.isEndOfRound()) { that.props.setRoundEnd(true)}
+      if (that.props.global.roundEnd) {
         that.endRound()
       } else if (that.props.battle.self.hasPassed) {
         that.props.setMyTurn(false)
@@ -127,5 +134,8 @@ Battle.propTypes = {
   updateGlobalState : React.PropTypes.func.isRequired,
   updateSelfScore : React.PropTypes.func.isRequired,
   updateEnemyScore : React.PropTypes.func.isRequired,
-  clearPlayingArea : React.PropTypes.func.isRequired
+  clearPlayingArea : React.PropTypes.func.isRequired,
+  resetPower : React.PropTypes.func.isRequired,
+  setRoundEnd : React.PropTypes.func.isRequired
+
 }

@@ -24,6 +24,8 @@ export const UPDATE_GLOBAL_STATE = 'UPDATE_GLOBAL_STATE'
 export const UPDATE_SELF_SCORE = 'UPDATE_SELF_SCORE'
 export const UPDATE_ENEMY_SCORE = 'UPDATE_ENEMY_SCORE'
 export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
+export const RESET_POWER = 'RESET_POWER'
+export const SET_ROUND_END = 'SET_ROUND_END'
 
 
 // ------------------------------------
@@ -60,10 +62,25 @@ export function updateSelfScore() {
     payload: 1
   }
 }
+
+export function setRoundEnd(boolean) {
+  return {
+    type: SET_ROUND_END,
+    payload: boolean
+  }
+}
+
 export function updateEnemyScore() {
   return {
     type: UPDATE_ENEMY_SCORE,
     payload: 1
+  }
+}
+
+export function resetPower() {
+  return {
+    type: RESET_POWER,
+    payload: 0
   }
 }
 
@@ -165,6 +182,20 @@ const ACTION_HANDLERS = {
   [SET_TURN_FINISHED] : (state, action) => {
     return Object.assign({}, state, {
       turnFinished: action.payload
+    })
+  },
+  [SET_ROUND_END] : (state, action) => {
+    return Object.assign({}, state, {
+      global: Object.assign({}, state.global, {
+        roundEnd: action.payload
+      }),
+    })
+  },
+  [RESET_POWER] : (state, action) => {
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.self, {
+        power: action.payload
+      }),
     })
   },
 
