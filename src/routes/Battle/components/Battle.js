@@ -9,7 +9,8 @@ const socket = io.connect(`${window.location.origin}`);
 export default class Battle extends React.Component {
 
   isEndOfRound() {
-    console.log("isEndOfRound is being called");
+    // if there are no cards in player hands, or both players have passed,
+    // or a combination of both
     if ( (this.props.battle.self.hasPassed
       && this.props.battle.enemy.hasPassed)
     || (this.props.battle.self.hand.length === 0
@@ -53,27 +54,28 @@ export default class Battle extends React.Component {
   }
 
   endRound() {
-    console.log('endRound is being called');
-    console.log("self power ", this.props.battle.self.power)
-    console.log("enemy power ", this.props.battle.enemy.power)
+    // if you're score is higher than your enemies increase you're score
+    // else if it's lower set your turn to false
     if (this.props.battle.self.power > this.props.battle.enemy.power) {
-      console.log("I won the round")
       this.props.updateSelfScore()
     } else {
-      console.log("I lost the round")
       this.props.setMyTurn(false)
     }
+    // clear your area and also your enemies area
+    // enemy cleared area is not sent across and is purely a diplay function
     this.props.clearPlayingArea()
     this.props.clearEnemyArea()
     this.props.resetPower()
     this.props.setPassTurn(false)
+    // if youre enemy has the conditions that mean he is ready to play then
+    // change update round counter and set round end to false to break the loop
     if (this.props.battle.enemy.hasPassed == false && this.props.battle.enemy.hand.length > 0) {
-      console.log("updating round counter")
       this.props.updateRoundCounter()
       this.props.setRoundEnd(false)
     }
+    // if you have lost, send this data to the opponent.
+    // they will then run the abovesteps, but carry on with their turn
     if (this.props.battle.self.myTurn == false) {
-      console.log("Back to the oppponent")
       this.props.setTurnFinished(true)
     }
   }
@@ -93,10 +95,11 @@ export default class Battle extends React.Component {
       that.props.setMyTurn(true)
       that.props.updateGlobalState(data.global)
       that.props.updateEnemyState(data.player)
-      if (that.isEndOfRound()) {
-        console.log("isEndOfRound is true")
-        that.props.setRoundEnd(true)
-      }
+      // if the end of round conditions are met, the global variable end of
+      // round is set to true
+      if (that.isEndOfRound()) {that.props.setRoundEnd(true) }
+      // if the global variable end of round is true, perform
+      // the end of round functions
       if (that.props.battle.global.roundEnd) {
         that.endRound()
       } else if (that.props.battle.self.hasPassed) {
