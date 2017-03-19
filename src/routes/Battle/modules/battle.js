@@ -23,6 +23,8 @@ export const SET_MATCH_MAKING_COMPLETE = 'SET_MATCH_MAKING_COMPLETE'
 export const UPDATE_GLOBAL_STATE = 'UPDATE_GLOBAL_STATE'
 export const UPDATE_SELF_SCORE = 'UPDATE_SELF_SCORE'
 export const UPDATE_ENEMY_SCORE = 'UPDATE_ENEMY_SCORE'
+export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
+
 
 // ------------------------------------
 // Actions
@@ -69,6 +71,13 @@ export function setupPlayers (data) {
   return {
     type: SETUP_PLAYERS,
     payload: data
+  }
+}
+
+export function clearPlayingArea () {
+  return {
+    type: CLEAR_PLAYING_AREA,
+    payload: []
   }
 }
 
@@ -166,6 +175,19 @@ const ACTION_HANDLERS = {
       }),
     })
   },
+  [CLEAR_PLAYING_AREA] : (state, action) => {
+    console.log('CLEAR PLAYING AREA IS BEING CALLED');
+    console.log('Before function call', state.self.playingArea);
+    state.self.playingArea.land = []
+    state.self.playingArea.air = []
+    state.self.playingArea.water = []
+    console.log('After function call', state.self.playingArea);
+    return Object.assign({}, state, {
+      self: Object.assign({}, state.self, {
+        playingArea: state.self.playingArea
+      }),
+    })
+  },
   [SET_MY_TURN] : (state, action) => {
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
@@ -174,6 +196,8 @@ const ACTION_HANDLERS = {
     })
   },
   [UPDATE_SELF_SCORE] : (state, action) => {
+    console.log('UPDATE SELF SCORE IS BEING CALLED');
+
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         score: state.self.score + action.payload
@@ -196,15 +220,9 @@ const ACTION_HANDLERS = {
   },
   [ADD_CARD] : (state, action) => {
     var card = (state.self.hand[action.payload])
-    console.log(card)
-    console.log(card.type);
     if(card.type == 'water'){ state.self.playingArea.water.push(card) }
     else if (card.type == 'land'){ state.self.playingArea.land.push(card) }
     else { state.self.playingArea.air.push(card) }
-    console.log('AIR FIELD ', state.self.playingArea.air)
-    console.log('LAND FIELD ', state.self.playingArea.land)
-    console.log('WATER FIELD ', state.self.playingArea.water)
-
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         playingArea: state.self.playingArea

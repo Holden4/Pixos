@@ -11,7 +11,8 @@ import {  increment,
           setMatchMakingComplete,
           updateGlobalState,
           updateSelfScore,
-          updateEnemyScore
+          updateEnemyScore,
+          clearPlayingArea
 } from '../modules/battle'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -38,7 +39,8 @@ const mapDispatchToProps = {
   setMatchMakingComplete,
   updateGlobalState,
   updateSelfScore,
-  updateEnemyScore
+  updateEnemyScore,
+  clearPlayingArea
 }
 
 const mapStateToProps = (state) => ({

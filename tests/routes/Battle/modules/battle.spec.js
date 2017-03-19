@@ -14,6 +14,8 @@ import {
   UPDATE_GLOBAL_STATE,
   UPDATE_SELF_SCORE,
   UPDATE_ENEMY_SCORE,
+  CLEAR_PLAYING_AREA,
+  clearPlayingArea,
   updateEnemyScore,
   updateSelfScore,
   updateGlobalState,
@@ -49,7 +51,7 @@ describe('(Redux Module) Battle', () => {
     expect(SET_MATCH_MAKING_COMPLETE).to.equal('SET_MATCH_MAKING_COMPLETE')
     expect(UPDATE_GLOBAL_STATE).to.equal('UPDATE_GLOBAL_STATE')
     expect(UPDATE_SELF_SCORE).to.equal('UPDATE_SELF_SCORE')
-
+    expect(CLEAR_PLAYING_AREA).to.equal('CLEAR_PLAYING_AREA')
   })
 
   describe('(Reducer)', () => {
@@ -76,6 +78,16 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SETUP_PLAYERS".', () => {
       expect(setupPlayers()).to.have.property('type', SETUP_PLAYERS)
+    })
+  })
+
+  describe('(Action Creator) clearPlayingArea', () => {
+    it('Should be exported as a function.', () => {
+      expect(clearPlayingArea).to.be.a('function')
+    })
+
+    it('Should return an action with type "CLEAR_PLAYING_AREA".', () => {
+      expect(clearPlayingArea()).to.have.property('type', CLEAR_PLAYING_AREA)
     })
   })
 

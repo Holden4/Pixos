@@ -9,10 +9,16 @@ const socket = io.connect(`${window.location.origin}`);
 export default class Battle extends React.Component {
 
   isEndOfRound() {
+    console.log("isEndOfRound is being called");
     if ( (this.props.battle.self.hasPassed
-      && this.props.battle.enemy.hasPassed
+      && this.props.battle.enemy.hasPassed)
     || (this.props.battle.self.hand.length === 0
-      && this.props.battle.self.hand.length === 0) ) {
+      && this.props.battle.self.hand.length === 0)
+    || (this.props.battle.self.hasPassed
+      && this.props.battle.enemy.hand.length === 0)
+    || (this.props.battle.enemy.hasPassed
+      && this.props.battle.self.hand.length === 0) )
+    {
       return true;
     }
   }
@@ -46,14 +52,17 @@ export default class Battle extends React.Component {
   }
 
   endRound() {
+    console.log('endRound is being called');
     if (this.props.battle.self.power > this.props.battle.enemy.power) {
       this.props.updateSelfScore()
-    } else if (this.props.battle.self.power < this.props.battle.enemy.power) {
-      this.props.updateEnemyScore()
     }
+    this.props.clearPlayingArea()
+    // reset power
+    // take turn
+      // this.props.setMyTurn(false)
+      // this.props.setTurnFinished(true)
     // to do: discardPlayedCards - remove from playing area
     // reset power
-    // determine who plays first
     //
   }
 
@@ -72,8 +81,8 @@ export default class Battle extends React.Component {
       that.props.setMyTurn(true)
       that.props.updateGlobalState(data.global)
       that.props.updateEnemyState(data.player)
-      if (this.isEndOfRound()) {
-        this.endRound()
+      if (that.isEndOfRound()) {
+        that.endRound()
       } else if (that.props.battle.self.hasPassed) {
         that.props.setMyTurn(false)
         that.props.setTurnFinished(true)
@@ -117,5 +126,6 @@ Battle.propTypes = {
   addCard : React.PropTypes.func.isRequired,
   updateGlobalState : React.PropTypes.func.isRequired,
   updateSelfScore : React.PropTypes.func.isRequired,
-  updateEnemyScore : React.PropTypes.func.isRequired
+  updateEnemyScore : React.PropTypes.func.isRequired,
+  clearPlayingArea : React.PropTypes.func.isRequired
 }
