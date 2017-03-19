@@ -64,6 +64,7 @@ export default class Battle extends React.Component {
       this.props.setMyTurn(false)
     }
     this.props.clearPlayingArea()
+    this.props.clearEnemyArea()
     this.props.resetPower()
     this.props.setPassTurn(false)
     if (this.props.battle.enemy.hasPassed == false && this.props.battle.enemy.hand.length > 0) {
@@ -116,7 +117,6 @@ export default class Battle extends React.Component {
       socket.emit('pass:ToRoom', {player: this.props.battle.self, global: this.props.battle.global})
       this.props.setTurnFinished(false)
     }
-
   }
 
   render () {
@@ -148,6 +148,7 @@ Battle.propTypes = {
   clearPlayingArea : React.PropTypes.func.isRequired,
   resetPower : React.PropTypes.func.isRequired,
   setRoundEnd : React.PropTypes.func.isRequired,
-  updateRoundCounter : React.PropTypes.func.isRequired
+  updateRoundCounter : React.PropTypes.func.isRequired,
+  clearEnemyArea : React.PropTypes.func.isRequired
 
 }

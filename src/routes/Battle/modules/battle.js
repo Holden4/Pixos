@@ -28,6 +28,7 @@ export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
 export const RESET_POWER = 'RESET_POWER'
 export const SET_ROUND_END = 'SET_ROUND_END'
 export const UPDATE_ROUND_COUNTER = 'UPDATE_ROUND_COUNTER'
+export const CLEAR_ENEMY_AREA = 'CLEAR_ENEMY_AREA'
 
 
 // ------------------------------------
@@ -69,6 +70,12 @@ export function setRoundEnd(boolean) {
   return {
     type: SET_ROUND_END,
     payload: boolean
+  }
+}
+export function clearEnemyArea() {
+  return {
+    type: CLEAR_ENEMY_AREA,
+    payload: []
   }
 }
 export function updateRoundCounter() {
@@ -231,15 +238,22 @@ const ACTION_HANDLERS = {
     })
   },
   [CLEAR_PLAYING_AREA] : (state, action) => {
-    console.log('CLEAR PLAYING AREA IS BEING CALLED');
-    console.log('Before function call', state.self.playingArea);
     state.self.playingArea.land = []
     state.self.playingArea.air = []
     state.self.playingArea.water = []
-    console.log('After function call', state.self.playingArea);
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         playingArea: state.self.playingArea
+      }),
+    })
+  },
+  [CLEAR_ENEMY_AREA] : (state, action) => {
+    state.enemy.playingArea.land = []
+    state.enemy.playingArea.air = []
+    state.enemy.playingArea.water = []
+    return Object.assign({}, state, {
+      enemy: Object.assign({}, state.enemy, {
+        playingArea: state.enemy.playingArea
       }),
     })
   },
@@ -251,8 +265,6 @@ const ACTION_HANDLERS = {
     })
   },
   [UPDATE_SELF_SCORE] : (state, action) => {
-    console.log('UPDATE SELF SCORE IS BEING CALLED');
-
     return Object.assign({}, state, {
       self: Object.assign({}, state.self, {
         score: state.self.score + action.payload

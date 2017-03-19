@@ -19,6 +19,8 @@ import {
   RESET_POWER,
   SET_ROUND_END,
   UPDATE_ROUND_COUNTER,
+  CLEAR_ENEMY_AREA,
+  clearEnemyArea,
   updateRoundCounter,
   setRoundEnd,
   resetPower,
@@ -64,6 +66,7 @@ describe('(Redux Module) Battle', () => {
     expect(RESET_POWER).to.equal('RESET_POWER')
     expect(SET_ROUND_END).to.equal('SET_ROUND_END')
     expect(UPDATE_ROUND_COUNTER).to.equal('UPDATE_ROUND_COUNTER')
+    expect(CLEAR_ENEMY_AREA).to.equal('CLEAR_ENEMY_AREA')
 
   })
 
@@ -101,6 +104,16 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SET_ROUND_END".', () => {
       expect(setRoundEnd()).to.have.property('type', SET_ROUND_END)
+    })
+  })
+
+  describe('(Action Creator) clearEnemyArea', () => {
+    it('Should be exported as a function.', () => {
+      expect(clearEnemyArea).to.be.a('function')
+    })
+
+    it('Should return an action with type "CLEAR_ENEMY_AREA".', () => {
+      expect(clearEnemyArea()).to.have.property('type', CLEAR_ENEMY_AREA)
     })
   })
 
