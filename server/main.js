@@ -96,56 +96,56 @@ var io = socketIo({
 });
 
 
-io.use(function(socket, next) {
-  console.log('in new session code')
-    var request = socket.request;
-
-    if(!request.headers.cookie) {
-        console.log('no cookie transmitted')
-        // If we want to refuse authentification, we pass an error to the first callback
-        return next(new Error('No cookie transmitted.'));
-    }
-
-    // We use the Express cookieParser created before to parse the cookie
-    // Express cookieParser(req, res, next) is used initialy to parse data in "req.headers.cookie".
-    // Here our cookies are stored in "request.headers.cookie", so we just pass "request" to the first argument of function
-    cookieParser(request, {}, function(parseErr) {
-        console.log('in cookie parser')
-        if(parseErr) { return next(new Error('Error parsing cookies.')); }
-
-        // Get the SID cookie
-        var sidCookie = (request.secureCookies && request.secureCookies[EXPRESS_SID_KEY]) ||
-                        (request.signedCookies && request.signedCookies[EXPRESS_SID_KEY]) ||
-                        (request.cookies && request.cookies[EXPRESS_SID_KEY]);
-        console.log('sidCookie is', sidCookie)
-        // Then we just need to load the session from the Express Session Store
-        store.load(sidCookie, function(err, session) {
-            console.log('in store loading, sessions is ', session)
-            // And last, we check if the used has a valid session and if he is logged in
-            if (err) {
-                return next(err);
-
-            // Session is empty
-            } else if(!session) {
-                return next(new Error('Session cannot be found/loaded'));
-
-            // // Check for auth here, here is a basic example
-            // } else if (session.isLogged !== true) {
-            //     return next(new Error('User not logged in'));
-
-            // Everything is fine
-            } else {
-                console.log('all is well')
-                // If you want, you can attach the session to the handshake data, so you can use it again later
-                // You can access it later with "socket.request.session" and "socket.request.sessionId"
-                request.session = session;
-                request.sessionId = sidCookie;
-
-                return next();
-            }
-        });
-    });
-});
+// io.use(function(socket, next) {
+//   console.log('in new session code')
+//     var request = socket.request;
+//
+//     if(!request.headers.cookie) {
+//         console.log('no cookie transmitted')
+//         // If we want to refuse authentification, we pass an error to the first callback
+//         return next(new Error('No cookie transmitted.'));
+//     }
+//
+//     // We use the Express cookieParser created before to parse the cookie
+//     // Express cookieParser(req, res, next) is used initialy to parse data in "req.headers.cookie".
+//     // Here our cookies are stored in "request.headers.cookie", so we just pass "request" to the first argument of function
+//     cookieParser(request, {}, function(parseErr) {
+//         console.log('in cookie parser')
+//         if(parseErr) { return next(new Error('Error parsing cookies.')); }
+//
+//         // Get the SID cookie
+//         var sidCookie = (request.secureCookies && request.secureCookies[EXPRESS_SID_KEY]) ||
+//                         (request.signedCookies && request.signedCookies[EXPRESS_SID_KEY]) ||
+//                         (request.cookies && request.cookies[EXPRESS_SID_KEY]);
+//         console.log('sidCookie is', sidCookie)
+//         // Then we just need to load the session from the Express Session Store
+//         store.load(sidCookie, function(err, session) {
+//             console.log('in store loading, sessions is ', session)
+//             // And last, we check if the used has a valid session and if he is logged in
+//             if (err) {
+//                 return next(err);
+//
+//             // Session is empty
+//             } else if(!session) {
+//                 return next(new Error('Session cannot be found/loaded'));
+//
+//             // // Check for auth here, here is a basic example
+//             // } else if (session.isLogged !== true) {
+//             //     return next(new Error('User not logged in'));
+//
+//             // Everything is fine
+//             } else {
+//                 console.log('all is well')
+//                 // If you want, you can attach the session to the handshake data, so you can use it again later
+//                 // You can access it later with "socket.request.session" and "socket.request.sessionId"
+//                 request.session = session;
+//                 request.sessionId = sidCookie;
+//
+//                 return next();
+//             }
+//         });
+//     });
+// });
 
 io.listen(server)
 
