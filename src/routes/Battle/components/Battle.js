@@ -80,7 +80,6 @@ export default class Battle extends React.Component {
     }
   }
 
-
   roundIsOver() {
     let battle = this.props.battle
     console.log('EVALUATING ROUND IS OVER', {

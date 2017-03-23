@@ -1,47 +1,41 @@
 import {
-  SETUP_PLAYERS,
-  SET_NEXT_PLAYER,
-  SET_PLAYER_PASS,
-  PLAY_CARD,
-  SET_TURN_FINISHED,
-  SET_MY_TURN,
-  UPDATE_ENEMY_STATE,
-  PASS_TURN,
-  REMOVE_CARD,
-  UPDATE_POWER,
   ADD_CARD,
-  SET_ROUND_NOTIFICATION,
-  RESURRECT_CARDS,
   APPLY_METEOR_EFFECT,
   APPLY_PARAGON_EFFECT,
-  SET_PLAYER_NOTIFICATION,
+  CLEAR_PLAYER_NOTIFICATION,
+  CLEAR_PLAYING_AREA,
   INCREMENT_ROUND_COUNTER,
   INCREMENT_SELF_SCORE,
-  CLEAR_PLAYING_AREA,
-  SET_READY_FOR_NEW_ROUND,
-  CLEAR_PLAYER_NOTIFICATION,
+  PASS_TURN,
+  REMOVE_CARD,
+  RESURRECT_CARDS,
   SET_GAME_ENDED,
-  clearPlayerNotification,
-  setGameEnded,
-  applyParagonEffect,
-  setRoundNotification,
-  incrementSelfScore,
-  incrementRoundCounter,
-  setPlayerNotification,
+  SET_MY_TURN,
+  SET_PLAYER_NOTIFICATION,
+  SET_READY_FOR_NEW_ROUND,
+  SET_ROUND_NOTIFICATION,
+  SET_TURN_FINISHED,
+  SETUP_PLAYERS,
+  UPDATE_ENEMY_STATE,
+  UPDATE_POWER,
   addCard,
+  applyMeteorEffect,
+  applyParagonEffect,
+  clearPlayingArea,
+  incrementRoundCounter,
+  incrementSelfScore,
   passTurn,
-  updateEnemyState,
+  removeCard,
+  resurrectCards,
+  setGameEnded,
   setMyTurn,
+  setPlayerNotification,
+  setReadyForNewRound,
   setTurnFinished,
   setupPlayers,
-  removeCard,
+  updateEnemyState,
   updatePower,
-  updateScore,
-  clearPlayingArea,
-  updateRoundCounter,
-  resurrectCards,
-  applyMeteorEffect,
-  setReadyForNewRound,
+  clearPlayerNotification,
   default as battleReducer
 } from 'routes/Battle/modules/battle'
 
@@ -51,37 +45,28 @@ import {
 
 describe('(Redux Module) Battle', () => {
   it('Should export a full set of constants.', () => {
-    expect(SETUP_PLAYERS).to.equal('SETUP_PLAYERS')
-    expect(SET_NEXT_PLAYER).to.equal('SET_NEXT_PLAYER')
-    expect(SET_PLAYER_PASS).to.equal('SET_PLAYER_PASS')
-    expect(PLAY_CARD).to.equal('PLAY_CARD')
-    expect(SET_TURN_FINISHED).to.equal('SET_TURN_FINISHED')
-    expect(SET_MY_TURN).to.equal('SET_MY_TURN')
-    expect(UPDATE_ENEMY_STATE).to.equal('UPDATE_ENEMY_STATE')
-    expect(PASS_TURN).to.equal('PASS_TURN')
-    expect(REMOVE_CARD).to.equal('REMOVE_CARD')
     expect(ADD_CARD).to.equal('ADD_CARD')
-    expect(UPDATE_POWER).to.equal('UPDATE_POWER'),
-    expect(UPDATE_SCORE).to.equal('UPDATE_SCORE'),
-    expect(CLEAR_PLAYING_AREA).to.equal('CLEAR_PLAYING_AREA'),
-    expect(SET_ROUND_NOTIFICATION).to.equal('SET_ROUND_NOTIFICATION')
-    expect(UPDATE_ROUND_COUNTER).to.equal('UPDATE_ROUND_COUNTER')
-    expect(SET_ROUND_NOTIFICATION).to.equal('SET_ROUND_NOTIFICATION')
-    expect(RESURRECT_CARDS).to.equal('RESURRECT_CARDS')
     expect(APPLY_METEOR_EFFECT).to.equal('APPLY_METEOR_EFFECT')
     expect(APPLY_PARAGON_EFFECT).to.equal('APPLY_PARAGON_EFFECT')
-    expect(SET_PLAYER_NOTIFICATION).to.equal('SET_PLAYER_NOTIFICATION')
-    expect(SET_READY_FOR_NEW_ROUND).to.equal('SET_READY_FOR_NEW_ROUND')
-    expect(INCREMENT_ROUND_COUNTER).to.equal('INCREMENT_ROUND_COUNTER')
-    expect(SET_PLAYER_NOTIFICATION).to.equal('SET_PLAYER_NOTIFICATION')
+    expect(CLEAR_PLAYER_NOTIFICATION).to.equal('CLEAR_PLAYER_NOTIFICATION')
+    expect(CLEAR_PLAYING_AREA).to.equal('CLEAR_PLAYING_AREA'),
     expect(INCREMENT_ROUND_COUNTER).to.equal('INCREMENT_ROUND_COUNTER')
     expect(INCREMENT_SELF_SCORE).to.equal('INCREMENT_SELF_SCORE')
-
-    expect(CLEAR_PLAYER_NOTIFICATION).to.equal('CLEAR_PLAYER_NOTIFICATION')
+    expect(PASS_TURN).to.equal('PASS_TURN')
+    expect(REMOVE_CARD).to.equal('REMOVE_CARD')
+    expect(RESURRECT_CARDS).to.equal('RESURRECT_CARDS')
+    expect(SET_GAME_ENDED).to.equal('SET_GAME_ENDED')
+    expect(SET_MY_TURN).to.equal('SET_MY_TURN')
+    expect(SET_PLAYER_NOTIFICATION).to.equal('SET_PLAYER_NOTIFICATION')
     expect(SET_READY_FOR_NEW_ROUND).to.equal('SET_READY_FOR_NEW_ROUND')
+    expect(SET_TURN_FINISHED).to.equal('SET_TURN_FINISHED')
+    expect(SETUP_PLAYERS).to.equal('SETUP_PLAYERS')
+    expect(UPDATE_ENEMY_STATE).to.equal('UPDATE_ENEMY_STATE')
+    expect(UPDATE_POWER).to.equal('UPDATE_POWER')
   })
+})
 
-  describe('(Reducer)', () => {
+  describe('(Reducer) Battle', () => {
     it('Should be a function.', () => {
       expect(battleReducer).to.be.a('function')
     })
@@ -114,7 +99,7 @@ describe('(Redux Module) Battle', () => {
     })
 
     it('Should return an action with type "INCREMENT_ROUND_COUNTER".', () => {
-      expect(incrementRoundCounter()).to.have.property('type', SETUP_PLAYERS)
+      expect(incrementRoundCounter()).to.have.property('type', INCREMENT_ROUND_COUNTER)
     })
   })
 
@@ -225,16 +210,6 @@ describe('(Redux Module) Battle', () => {
 
     it('Should return an action with type "SET_TURN_FINISHED".', () => {
       expect(updateEnemyState()).to.have.property('type', UPDATE_ENEMY_STATE)
-    })
-  })
-
-  describe('(Action Creator) updateScore', () => {
-    it('Should be exported as a function.', () => {
-      expect(updateScore).to.be.a('function')
-    })
-
-    it('Should return an action with type "UPDATE_SCORE".', () => {
-      expect(updateScore()).to.have.property('type', UPDATE_SCORE)
     })
   })
 

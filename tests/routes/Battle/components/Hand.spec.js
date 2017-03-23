@@ -1,6 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import Hand from 'routes/Battle/components/Hand'
+import { Hand } from 'routes/Battle/components/Hand'
 import { shallow } from 'enzyme'
 import { TEST_STATE } from './BattleStateHelper'
 

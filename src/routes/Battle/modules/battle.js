@@ -7,132 +7,33 @@ import store from 'store/createStore'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const SETUP_PLAYERS = 'SETUP_PLAYERS'
-export const SET_TURN_FINISHED = 'SET_TURN_FINISHED'
-export const SET_MY_TURN = 'SET_MY_TURN'
-export const UPDATE_ENEMY_STATE = 'UPDATE_ENEMY_STATE'
-export const PASS_TURN = 'PASS_TURN'
-export const REMOVE_CARD = 'REMOVE_CARD'
 export const ADD_CARD = 'ADD_CARD'
-export const UPDATE_POWER = 'UPDATE_POWER'
-export const UPDATE_SCORE = 'UPDATE_SCORE'
-export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
-export const RESURRECT_CARDS = 'RESURRECT_CARDS'
 export const APPLY_METEOR_EFFECT = 'APPLY_METEOR_EFFECT'
 export const APPLY_PARAGON_EFFECT = 'APPLY_PARAGON_EFFECT'
-export const SET_PLAYER_NOTIFICATION = 'SET_PLAYER_NOTIFICATION'
-export const SET_READY_FOR_NEW_ROUND = 'SET_READY_FOR_NEW_ROUND'
+export const CLEAR_PLAYER_NOTIFICATION = 'CLEAR_PLAYER_NOTIFICATION'
+export const CLEAR_PLAYING_AREA = 'CLEAR_PLAYING_AREA'
 export const INCREMENT_ROUND_COUNTER = 'INCREMENT_ROUND_COUNTER'
 export const INCREMENT_SELF_SCORE = 'INCREMENT_SELF_SCORE'
-export const CLEAR_PLAYER_NOTIFICATION = 'CLEAR_PLAYER_NOTIFICATION'
+export const PASS_TURN = 'PASS_TURN'
+export const REMOVE_CARD = 'REMOVE_CARD'
+export const RESURRECT_CARDS = 'RESURRECT_CARDS'
 export const SET_GAME_ENDED = 'SET_GAME_ENDED'
+export const SET_MY_TURN = 'SET_MY_TURN'
+export const SET_PLAYER_NOTIFICATION = 'SET_PLAYER_NOTIFICATION'
+export const SET_READY_FOR_NEW_ROUND = 'SET_READY_FOR_NEW_ROUND'
+export const SET_TURN_FINISHED = 'SET_TURN_FINISHED'
+export const SETUP_PLAYERS = 'SETUP_PLAYERS'
+export const UPDATE_ENEMY_STATE = 'UPDATE_ENEMY_STATE'
+export const UPDATE_POWER = 'UPDATE_POWER'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export function incrementSelfScore () {
-  return {
-    type: INCREMENT_SELF_SCORE
-  }
-}
-
-export function setupPlayers (data) {
-  return {
-    type: SETUP_PLAYERS,
-    payload: data
-  }
-}
-
 export function addCard (cardId) {
   return {
     type: ADD_CARD,
     payload: cardId
-  }
-}
-
-export function incrementRoundCounter() {
-  return {
-    type: INCREMENT_ROUND_COUNTER
-  }
-}
-
-export function setReadyForNewRound (boolean) {
-  return {
-    type: SET_READY_FOR_NEW_ROUND,
-    payload: boolean
-  }
-}
-
-export function clearPlayingArea () {
-  return {
-    type: CLEAR_PLAYING_AREA
-  }
-}
-
-export function setPlayerNotification (notification) {
-  return {
-    type: SET_PLAYER_NOTIFICATION,
-    payload: notification
-  }
-}
-
-export function clearPlayerNotification () {
-  return {
-    type: CLEAR_PLAYER_NOTIFICATION
-  }
-}
-
-export function setGameEnded () {
-  return {
-    type: SET_GAME_ENDED
-  }
-}
-
-export function removeCard(cardId) {
-  return {
-    type: REMOVE_CARD,
-    payload: cardId
-  }
-}
-
-export function updatePower () {
-  return {
-    type: UPDATE_POWER
-  }
-}
-
-export function setTurnFinished (boolean) {
-  return {
-    type: SET_TURN_FINISHED,
-    payload: boolean
-  }
-}
-
-export function setMyTurn (boolean) {
-  return {
-    type: SET_MY_TURN,
-    payload: boolean
-  }
-}
-
-export function passTurn (boolean) {
-  return {
-    type: PASS_TURN,
-    payload: boolean
-  }
-}
-
-export function updateEnemyState (object) {
-  return {
-    type: UPDATE_ENEMY_STATE,
-    payload: object
-  }
-}
-
-export function resurrectCards () {
-  return {
-    type: RESURRECT_CARDS
   }
 }
 
@@ -150,23 +51,122 @@ export function applyParagonEffect (data) {
   }
 }
 
+export function clearPlayingArea () {
+  return {
+    type: CLEAR_PLAYING_AREA
+  }
+}
+
+export function incrementRoundCounter() {
+  return {
+    type: INCREMENT_ROUND_COUNTER
+  }
+}
+
+export function incrementSelfScore () {
+  return {
+    type: INCREMENT_SELF_SCORE
+  }
+}
+
+export function passTurn (boolean) {
+  return {
+    type: PASS_TURN,
+    payload: boolean
+  }
+}
+
+export function removeCard(cardId) {
+  return {
+    type: REMOVE_CARD,
+    payload: cardId
+  }
+}
+
+export function resurrectCards () {
+  return {
+    type: RESURRECT_CARDS
+  }
+}
+
+export function setGameEnded () {
+  return {
+    type: SET_GAME_ENDED
+  }
+}
+
+export function setMyTurn (boolean) {
+  return {
+    type: SET_MY_TURN,
+    payload: boolean
+  }
+}
+
+export function setPlayerNotification (notification) {
+  return {
+    type: SET_PLAYER_NOTIFICATION,
+    payload: notification
+  }
+}
+
+export function setReadyForNewRound (boolean) {
+  return {
+    type: SET_READY_FOR_NEW_ROUND,
+    payload: boolean
+  }
+}
+
+export function setTurnFinished (boolean) {
+  return {
+    type: SET_TURN_FINISHED,
+    payload: boolean
+  }
+}
+
+export function setupPlayers (data) {
+  return {
+    type: SETUP_PLAYERS,
+    payload: data
+  }
+}
+
+export function updateEnemyState (object) {
+  return {
+    type: UPDATE_ENEMY_STATE,
+    payload: object
+  }
+}
+
+export function updatePower () {
+  return {
+    type: UPDATE_POWER
+  }
+}
+
+export function clearPlayerNotification () {
+  return {
+    type: CLEAR_PLAYER_NOTIFICATION
+  }
+}
+
 export const actions = {
-  setupPlayers,
-  setMyTurn,
-  updatePower,
   addCard,
-  removeCard,
-  clearPlayingArea,
-  resurrectCards,
+  applyMeteorEffect,
   applyParagonEffect,
-  setPlayerNotification,
-  setReadyForNewRound,
+  clearPlayerNotification,
+  clearPlayingArea,
   incrementRoundCounter,
   incrementSelfScore,
-  clearPlayerNotification,
+  passTurn,
+  removeCard,
+  resurrectCards,
   setGameEnded,
+  setMyTurn,
+  setPlayerNotification,
+  setReadyForNewRound,
   setTurnFinished,
-  passTurn
+  setupPlayers,
+  updatePower
 }
 
 // ------------------------------------
@@ -293,17 +293,6 @@ const ACTION_HANDLERS = {
         power: enemyPower
       })
     })
-  },
-  [UPDATE_SCORE] : (state, action) => {
-    let selfHasWon = action.payload
-    if (selfHasWon) {
-      return Object.assign({}, state, {
-        self: Object.assign({}, state.self, {
-          score: state.self.score + 1
-        }),
-      })
-    }
-    return state
   },
   [SET_PLAYER_NOTIFICATION] : (state, action) => {
     return Object.assign({}, state, {

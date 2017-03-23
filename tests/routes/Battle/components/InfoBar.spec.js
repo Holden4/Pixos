@@ -1,6 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import InfoBar from 'routes/Battle/components/InfoBar'
+import { InfoBar } from 'routes/Battle/components/InfoBar'
 import { shallow } from 'enzyme'
 import { TEST_STATE } from './BattleStateHelper'
 
