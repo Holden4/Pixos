@@ -31,3 +31,23 @@ describe('(Reducer) Deck Builder', () => {
     expect(state).to.equal(DECKBUILD_STATE)
   })
 })
+
+describe('(Action Creator) placeInDeck', () => {
+  it('Should be exported as a function.', () => {
+    expect(placeInDeck).to.be.a('function')
+  })
+
+  it('Should return an action with type "PLACE_IN_DECK".', () => {
+    expect(placeInDeck()).to.have.property('type', PLACE_IN_DECK)
+  })
+})
+
+describe('(Action Creator) removeFromDeck', () => {
+  it('Should be exported as a function.', () => {
+    expect(removeFromDeck).to.be.a('function')
+  })
+
+  it('Should return an action with type "REMOVE_FROM_DECK".', () => {
+    expect(removeFromDeck()).to.have.property('type', REMOVE_FROM_DECK)
+  })
+})

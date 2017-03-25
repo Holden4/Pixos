@@ -6,7 +6,7 @@ import { PlayingArea } from 'routes/Battle/components/PlayingArea'
 import { shallow } from 'enzyme'
 import { TEST_STATE } from './BattleStateHelper'
 
-describe('(Component) Board', () => {
+xdescribe('(Component) Board', () => {
   let _props, _wrapper
 
   beforeEach(() => {
